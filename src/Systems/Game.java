@@ -11,7 +11,7 @@ public class Game implements Runnable
 		public int width, height;
 		public String title;
 		
-		private Thread thread;
+		private Thread thread;//mimics the function of processing two things at once
 		private boolean running = false;
 		
 		private BufferStrategy bs;
@@ -67,7 +67,7 @@ public class Game implements Runnable
 			try
 				{
 					thread.join();
-				} catch (InterruptedException e)
+				} catch (InterruptedException e)//interupts the thread stopping the program
 				{
 					e.printStackTrace();
 				}
