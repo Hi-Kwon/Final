@@ -2,8 +2,9 @@ package Systems;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
-import Display.Display;
+import Display.gfx.ImageLoader;
 
 public class Game implements Runnable
 	{
@@ -17,6 +18,8 @@ public class Game implements Runnable
 		private BufferStrategy bs;
 		private Graphics g;
 		
+		private BufferedImage townImage;
+		
 		public Game(String title, int width, int height)
 		{
 			this.width = width;
@@ -27,6 +30,7 @@ public class Game implements Runnable
 		{
 			display = new Display(title, width, height);
 			//graphics
+			townImage = ImageLoader.loadImage("/Textures/download.jpg");
 		}
 		private void tick()
 		{
@@ -34,7 +38,22 @@ public class Game implements Runnable
 		}
 		private void render()
 		{
-			bs = display.getCanvas().getBufferStrategy();//Buffer is like a hidden computer screen which ones the image drawn to the real scrren (prevent flickering)
+			bs = display.getCanvas().getBufferStrategy();//Buffer is like a hidden computer screen which ones the image drawn to the real screen (prevent flickering)
+			if (bs == null)//If no buffer is found it will create new buffer
+			{
+				display.getCanvas().createBufferStrategy(3);
+				return;
+			}
+			g = bs.getDrawGraphics();//Basically paint brush
+			//Clear
+			g.clearRect(0, 0, width, height);//clear screen
+			//Draw
+			
+			g.drawImage(townImage, 100, 100, null);
+		
+			//End drawing
+			bs.show();//Tells java to end drawing and display said drawing on screen through the buffers
+			g.dispose();
 		}
 		public void run()
 		{
@@ -67,7 +86,7 @@ public class Game implements Runnable
 			try
 				{
 					thread.join();
-				} catch (InterruptedException e)//interupts the thread stopping the program
+				} catch (InterruptedException e)//Interrupts the thread stopping the program
 				{
 					e.printStackTrace();
 				}

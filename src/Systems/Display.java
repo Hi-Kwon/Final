@@ -1,4 +1,4 @@
-package Display;
+package Systems;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -18,12 +18,14 @@ public class Display
 			this.title = title;
 			this.width = width;
 			this.height = height;
+			
+			createDisplay();
 		}
 		private void createDisplay()
 		{
 			display = new JFrame(title);
 			display.setSize(width, height);
-			display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//lets opaeration be closed with (X) icon
+			display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//lets operation be closed with (X) icon
 			display.setResizable(false);//Does not let change in size on screen
 			display.setLocationRelativeTo(null);//window will appear in center of screen
 			display.setVisible(true);//Jframe is visible

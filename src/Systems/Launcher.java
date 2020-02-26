@@ -1,6 +1,6 @@
 package Systems;
 
-import Display.Display;
+import Systems.Game;
 
 public class Launcher
 	{
